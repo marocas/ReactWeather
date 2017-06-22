@@ -21,14 +21,8 @@ let Weather = React.createClass({
 				location = res.location,
 				country = res.country,
 				status = res.status;
-				// debugger;
-				that.setState({
-					temp: temp,
-					location: location,
-					country: country, 
-					cod: status, 
-					isLoading: false
-				});
+				debugger;
+				that.setState({ temp: temp, location: location, country: country, cod: status, isLoading: false });
 			},
 			function(errorMessage) {
 				// error
@@ -42,9 +36,9 @@ let Weather = React.createClass({
 		let {isLoading, temp, location, country, cod} = this.state;
 		function renderMessage() {
 			if (isLoading) {
-				return <h3>Fetching weather...</h3>
+				return <h3 className="text-center">Fetching weather...</h3>
 			} else if (cod === 400) {
-				return <h3>No city found...</h3>
+				return <h3 className="text-center">No city found...</h3>
 			} else if (temp && location && country) {
 				return <WeatherMessage temp={temp} location={location} country={country}></WeatherMessage>
 			}
@@ -52,7 +46,7 @@ let Weather = React.createClass({
 
 		return (
 			<div>
-				<h3>Get Weather</h3>
+				<h1 className="text-center">Get Weather</h1>
 				<WeatherForm onSearch={this.handleSearch}></WeatherForm>
 				{renderMessage()}
 			</div>
