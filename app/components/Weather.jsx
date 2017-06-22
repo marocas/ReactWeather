@@ -13,35 +13,39 @@ let Weather = React.createClass({
 	handleSearch: function(location) {
 		let that = this;
 
-		// debugger;
 		this.setState({isLoading: true})
 
-		openWeatherMap.getTemp(location).then(
-			function(response) {
-				// success
-				let message = response,
-				temp = message.temp,
-				location = message.location,
-				country = message.country;
-
-				that.setState({temp: temp, location: location, country: country, isLoading: false});
-
+		openWeatherMap.getTemp(location).then(function(res) {
+			// success
+			let temp = res.temp,
+				location = res.location,
+				country = res.country,
+				status = res.status;
+			debugger;
+				that.setState({
+					temp: temp,
+					location: location,
+					country: country, 
+					cod: status, 
+					isLoading: false
+				});
 			},
-			function(response) {
+			function(errorMessage) {
 				// error
-				let message = response;
-				console.warn('error ', message);
-				isLoading : false
+				that.setState({isLoading: false});
+      			console.warn('error ', errorMessage);
 			}
 		);
 	},
 
 	render: function() {
-		let {isLoading, temp, location, country} = this.state;
+		let {isLoading, temp, location, country, cod} = this.state;
 
 		function renderMessage() {
 			if (isLoading) {
 				return <h3>Fetching weather...</h3>
+			} else if (cod !== 200) {
+				return <h3>No city found...</h3>
 			} else if (temp && location && country) {
 				return <WeatherMessage temp={temp} location={location} country={country}></WeatherMessage>
 			}
