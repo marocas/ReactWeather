@@ -16,7 +16,7 @@ module.exports = {
 				location = res.data.name,
 				country = res.data.sys.country;
 
-			if (status !== 200) {
+			if (status === 400) {
 				// error
 				throw new Error(status);
 			}

@@ -44,7 +44,7 @@ let Weather = React.createClass({
 		function renderMessage() {
 			if (isLoading) {
 				return <h3>Fetching weather...</h3>
-			} else if (cod !== 200) {
+			} else if (cod === 400) {
 				return <h3>No city found...</h3>
 			} else if (temp && location && country) {
 				return <WeatherMessage temp={temp} location={location} country={country}></WeatherMessage>
