@@ -21,7 +21,7 @@ let Weather = React.createClass({
 				location = res.location,
 				country = res.country,
 				status = res.status;
-			debugger;
+				// debugger;
 				that.setState({
 					temp: temp,
 					location: location,
@@ -40,7 +40,6 @@ let Weather = React.createClass({
 
 	render: function() {
 		let {isLoading, temp, location, country, cod} = this.state;
-
 		function renderMessage() {
 			if (isLoading) {
 				return <h3>Fetching weather...</h3>
