@@ -7,32 +7,36 @@ module.exports = {
 		var encodedLocation = encodeURIComponent(location);
 		var requestUrl = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
 
-		return axios.get(requestUrl).then(function(res) {
-			// debugger;
-			// success
-			let cod = res.data.cod,
-				status = res.status,
-				temp = res.data.main.temp,
-				location = res.data.name,
-				country = res.data.sys.country;
+		return axios
+				.get(requestUrl)
+				.then(
+					// Get then status SUCCESS
+					function(res) {
+						// debugger;
+						let cod = res.data.cod,
+							msg = res.data.message,
+							temp = res.data.main.temp,
+							location = res.data.name,
+							country = res.data.sys.country;
 
-			if (status === 400) {
-				// error
-				throw new Error(status);
-			}
-			else {
-				// success
-				return {temp, location, country, status};
-			}
-		},
-		function(res) {
-			// debugger;		
-			// error
-			let msg = res.response.data.message,
-				cod = res.response.data.cod;
-
-			console.log(cod, msg);
-			return msg;
-		});
+						if (res.data.cod && res.data.message) {
+							// error
+							throw new Error(res.data.message);
+						}
+						else {
+							// success
+							return {temp, location, country};
+						
+						}
+					},
+		
+					// Get then status ERROR
+					function (err) {
+						// debugger;
+						// let msg = err.response.data.message;
+						// throw new Error(msg);
+						throw new Error('Unable to fetch weather for that location.');
+					}
+				);
 	}
 }
