@@ -1,0 +1,11 @@
+@import '_variable';
+
+.page-title {
+    color: $title-color;
+    margin-top: $space-lg;
+    margin-bottom: $space-lg;
+}
+
+input[type=search] {
+    box-shadow: none;
+}
